@@ -1,1 +1,1 @@
-web: bundle exec python server -p $PORT
+worker: bundle exec python server -p $PORT
