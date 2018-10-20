@@ -1,9 +1,11 @@
 import socket
+import os
 from _thread import *
 
 host = ''
-port = 80
+port = os.environ.get("PORT", 5000)
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
 
 try:
     s.bind((host, port))
@@ -17,7 +19,7 @@ def threaded_client(conn):
     conn.send(str.encode('Welcome, type your info\n'))
     dataHolder = ''
     while True:
-        data = conn.recv(2048)
+        data = conn.recv(1024)
         dataHolder = dataHolder + data.decode('utf-8')
         for string in dataHolder:
             if string == '\n':
