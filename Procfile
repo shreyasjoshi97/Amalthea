@@ -1,1 +1,1 @@
-web: python Server.py
+web: bundle exec python server -p $PORT
