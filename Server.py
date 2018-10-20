@@ -2,7 +2,7 @@ import socket
 import os
 from _thread import *
 
-host = ''
+host = '0.0.0.0'
 port = os.environ.get("PORT", 5000)
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
