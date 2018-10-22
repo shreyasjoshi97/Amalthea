@@ -1,4 +1,5 @@
 import socket
+import errno
 import os
 from _thread import *
 
@@ -24,11 +25,21 @@ def threaded_client(conn):
         dataHolder = dataHolder + data.decode('utf-8')
         for string in dataHolder:
             if string == '\n':
-                reply = 'Server output: ' + dataHolder + '\n'
-                conn.sendall(str.encode(reply))
-                serverOutput = addr[0] + ': ' + dataHolder
-                dataHolder = ''
-                print(serverOutput)
+                try:
+                    reply = 'Server output: ' + dataHolder + '\n'
+                    conn.sendall(str.encode(reply))
+                    serverOutput = addr[0] + ': ' + dataHolder
+                    dataHolder = ''
+                    print(serverOutput)
+                except socket.error as e:
+                    if isinstance(e.args, tuple):
+                        print("errorno %d" % e[0])
+                        if e[0] == errno.EPIPE:
+                            print("Client disconnected")
+                        else:
+                            pass
+                    else:
+                        print("Socket error: ", e)
         if not data:
             break
     conn.close()
