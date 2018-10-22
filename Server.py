@@ -26,7 +26,7 @@ def threaded_client(conn):
             for string in dataHolder:
                 if string == '\n':
                     reply = 'Server output: ' + dataHolder + '\n'
-                    s.connect(addr[0], port)
+                    s.connect(addr[0])
                     conn.sendall(str.encode(reply))
                     serverOutput = addr[0] + ': ' + dataHolder
                     dataHolder = ''
