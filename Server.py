@@ -40,6 +40,8 @@ def threaded_client(conn):
                             pass
                     else:
                         print("Socket error: ", e)
+                except ConnectionResetError as e:
+                    print("Connection reset error")
         if not data:
             break
     conn.close()
