@@ -21,29 +21,22 @@ def threaded_client(conn):
     conn.send(str.encode('Welcome, type your info\n'))
     dataHolder = ''
     while True:
-        data = conn.recv(1024)
-        dataHolder = dataHolder + data.decode('utf-8')
-        for string in dataHolder:
-            if string == '\n':
-                try:
+        try:
+            data = conn.recv(1024)
+            dataHolder = dataHolder + data.decode('utf-8')
+            for string in dataHolder:
+                if string == '\n':
                     reply = 'Server output: ' + dataHolder + '\n'
                     conn.sendall(str.encode(reply))
                     serverOutput = addr[0] + ': ' + dataHolder
                     dataHolder = ''
                     print(serverOutput)
-                except socket.error as e:
-                    if isinstance(e.args, tuple):
-                        print("errorno %d" % e[0])
-                        if e[0] == errno.EPIPE:
-                            print("Client disconnected")
-                        else:
-                            pass
-                    else:
-                        print("Socket error: ", e)
-                except ConnectionResetError as e:
-                    print("Connection reset error")
-        if not data:
-            break
+                    if not data:
+                        break
+        except BrokenPipeError as e:
+            print("Socket error: ", e)
+        except ConnectionResetError as e:
+            print("Connection reset error")
     conn.close()
 
 while True:
