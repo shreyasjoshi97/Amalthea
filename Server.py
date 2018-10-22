@@ -1,4 +1,5 @@
 import socket
+import errno
 import os
 from _thread import *
 
@@ -26,7 +27,6 @@ def threaded_client(conn):
             for string in dataHolder:
                 if string == '\n':
                     reply = 'Server output: ' + dataHolder + '\n'
-                    s.connect((addr[0], port))
                     conn.sendall(str.encode(reply))
                     serverOutput = addr[0] + ': ' + dataHolder
                     dataHolder = ''
