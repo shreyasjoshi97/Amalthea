@@ -1,3 +1,3 @@
 # Amalthea
-Server solution to Jupiter \n
+Server solution to Jupiter  
 Part of University of Reading Final Year Project
