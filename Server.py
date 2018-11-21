@@ -1,6 +1,7 @@
 import socket
 import os
 from _thread import *
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
 host = '0.0.0.0'
 port = os.environ.get("PORT", 5000)
@@ -11,26 +12,25 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
     s.bind((host, port))
 except socket.error as e:
-    print(str(e))
+    print("Binding failed")
 
 s.listen(5)
-print('Waiting for connection')
+print('Server listening')
 
 
 def threaded_client(conn):
-    conn.send(str.encode('Welcome, type your info\n'))
-    dataHolder = ''
+    data_holder = ''
     while True:
         try:
             data = conn.recv(1024)
-            dataHolder = dataHolder + data.decode('utf-8')
-            for string in dataHolder:
+            data_holder = data_holder + data.decode('utf-8')
+            for string in data_holder:
                 if string == '\n':
-                    reply = "HTTP/1.1 200 OK\n" + "Content-Type: text\n" + "\n" + dataHolder
+                    reply = data_holder
                     conn.sendall(str.encode(reply))
-                    serverOutput = addr[0] + ': ' + dataHolder
-                    dataHolder = ''
-                    print(serverOutput)
+                    server_output = addr[0] + ': ' + data_holder
+                    data_holder = ''
+                    print(server_output)
                     if not data:
                         break
         except BrokenPipeError as e:
