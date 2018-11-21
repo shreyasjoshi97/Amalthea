@@ -8,7 +8,7 @@ def index():
     return "Hi"
 
 
-@app.route("/", method="POST")
+@app.route("/", methods="POST")
 def send_data():
     return "Message received!"
 
