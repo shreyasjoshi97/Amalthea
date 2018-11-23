@@ -21,7 +21,7 @@ def threaded_client(conn):
     data_holder = ''
     while True:
         try:
-            data = conn.recv(1024)
+            data = conn.recv(2048)
             data_holder = data_holder + data.decode('utf-8')
             for string in data_holder:
                 if string == '\n':
