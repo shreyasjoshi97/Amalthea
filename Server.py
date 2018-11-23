@@ -27,7 +27,7 @@ def threaded_client(conn):
             for string in data_holder:
                 if string == '\n':
                     print("Newline found" + string)
-                    reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + data_holder
+                    reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\r\n" + "\r\n" + data_holder + "\r\n" + "endofmessage" + "\r\n"
                     # reply = data_holder
                     conn.send(str.encode(reply))
                     print(data_holder)
@@ -38,6 +38,8 @@ def threaded_client(conn):
             print("Socket error: ", e)
         except ConnectionResetError as e:
             print("Connection reset error")
+        except ConnectionAbortedError as e:
+            print()
     conn.close()
 
 
