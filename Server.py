@@ -12,7 +12,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 try:
     s.bind((host, port))
 except socket.error as e:
-    print("Binding failed")
+    print("Binding failed" + e.strerror)
 
 s.listen(5)
 print('Server listening')
@@ -20,26 +20,28 @@ print('Server listening')
 
 def threaded_client(conn):
     data_holder = ''
-    while True:
+    sending = True
+    while sending:
         try:
             data = conn.recv(1024)
             data_holder = data_holder + data.decode('utf-8')
             for string in data_holder:
                 if string == '\n':
                     print("Newline found" + string)
-                    reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\r\n" + "\r\n" + data_holder + "\r\n" + "endofmessage" + "\r\n"
+                    reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\r\n" + "\r\n" + data_holder
                     # reply = data_holder
                     conn.send(str.encode(reply))
                     print(data_holder)
                     if not data:
                         print("No data received")
                         break
+                    sending = False
         except BrokenPipeError as e:
             print("Socket error: ", e)
+            break
         except ConnectionResetError as e:
             print("Connection reset error")
-        except ConnectionAbortedError as e:
-            print()
+            break
     conn.close()
 
 
