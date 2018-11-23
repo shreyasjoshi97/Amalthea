@@ -25,7 +25,6 @@ def threaded_client(conn):
             data = conn.recv(1024)
             data_holder = data_holder + data.decode('utf-8')
             for string in data_holder:
-                print("Processing: " + string)
                 if "$$end$$" in string:
                     reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + data_holder
                     # reply = data_holder
