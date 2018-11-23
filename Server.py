@@ -25,8 +25,8 @@ def threaded_client(conn):
         try:
             data = conn.recv(1024)
             data_holder = data.decode('utf-8')
-            conn.send(data_holder)
-            print(data_holder)
+            conn.send(data)
+            print(data)
 
         except BrokenPipeError as e:
             print("Socket error: ", e)
