@@ -1,5 +1,6 @@
 import socket
 import os
+import re
 from _thread import *
 
 host = '0.0.0.0'
@@ -22,11 +23,12 @@ def threaded_client(conn):
     while True:
         try:
             data = conn.recv(1024)
-            data_holder = data.decode('utf-8')
+            data_holder = data_holder + data.decode('utf-8')
             for string in data_holder:
-                if string == '\n':
+                print("Processing: " + string)
+                if "$$end$$" in string:
                     reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + data_holder
-                    #reply = data_holder
+                    # reply = data_holder
                     conn.send(str.encode(reply))
                     print(data_holder)
                     if not data:
