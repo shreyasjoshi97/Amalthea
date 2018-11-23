@@ -1,7 +1,8 @@
 import socket
 import os
 from _thread import *
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from signal import signal, SIGPIPE, SIG_DFL
+signal(SIGPIPE,SIG_DFL)
 
 host = '0.0.0.0'
 port = os.environ.get("PORT", 5000)
@@ -26,8 +27,8 @@ def threaded_client(conn):
             data_holder = data_holder + data.decode('utf-8')
             for string in data_holder:
                 if string == '\n':
-                    reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + data_holder
-                    #reply = data_holder
+                    reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + "Message Received"
+                    # reply = data_holder
                     conn.send(str.encode(reply))
                     server_output = addr[0] + ': ' + data_holder
                     data_holder = ''
