@@ -14,7 +14,7 @@ try:
 except socket.error as e:
     print("Binding failed" + e.strerror)
 
-s.listen(5)
+s.listen(1)
 print('Server listening')
 
 
@@ -24,19 +24,10 @@ def threaded_client(conn):
     while sending:
         try:
             data = conn.recv(1024)
-            data_holder = data_holder + data.decode('utf-8')
-            for string in data_holder:
-                print(data_holder)
-                if string == '\n':
-                    print("Newline found" + data_holder)
-                    reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + data_holder
-                    # reply = data_holder
-                    conn.send(str.encode(reply))
-                    print(data_holder)
-                    if not data:
-                        print("No data received")
-                        break
-                    sending = False
+            data_holder = data.decode('utf-8')
+            conn.send(data_holder)
+            print(data_holder)
+
         except BrokenPipeError as e:
             print("Socket error: ", e)
             break
