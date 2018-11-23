@@ -24,10 +24,19 @@ def threaded_client(conn):
     while sending:
         try:
             data = conn.recv(1024)
-            data_holder = data.decode('utf-8')
-            conn.send(data)
-            print(data)
-
+            data_holder = data_holder + data.decode('utf-8')
+            for string in data_holder:
+                print(data_holder)
+                if string == '\n':
+                    print("Newline found" + data_holder)
+                    reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + data_holder
+                    # reply = data_holder
+                    conn.send(str.encode(reply))
+                    print(data_holder)
+                    if not data:
+                        print("No data received")
+                        break
+                    sending = False
         except BrokenPipeError as e:
             print("Socket error: ", e)
             break
