@@ -1,8 +1,6 @@
 import socket
 import os
 from _thread import *
-from signal import signal, SIGPIPE, SIG_DFL
-signal(SIGPIPE,SIG_DFL)
 
 host = '0.0.0.0'
 port = os.environ.get("PORT", 5000)
