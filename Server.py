@@ -22,13 +22,10 @@ def threaded_client(conn):
     while True:
         try:
             data = conn.recv(1024)
-            print("Received data")
-            print("Raw Data: " + str(data))
             data_holder = data.decode('utf-8')
-            print("Decoded data: " + data_holder)
             for string in data_holder:
                 if string == '\n':
-                    reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + data_holder
+                    reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + str(data)
                     #reply = data_holder
                     conn.send(str.encode(reply))
                     print(data_holder)
