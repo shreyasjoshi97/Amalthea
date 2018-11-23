@@ -23,7 +23,7 @@ def threaded_client(conn):
         try:
             data = conn.recv(1024)
             print("Received data")
-            print("Raw Data: " + data)
+            print("Raw Data: " + str(data))
             data_holder = data.decode('utf-8')
             print("Decoded data: " + data_holder)
             for string in data_holder:
