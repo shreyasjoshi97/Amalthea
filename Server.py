@@ -31,7 +31,6 @@ def threaded_client(conn):
                     if not data:
                         print("No data received")
                         break
-                    break
         except BrokenPipeError as e:
             print("Socket error: ", e)
         except ConnectionResetError as e:
