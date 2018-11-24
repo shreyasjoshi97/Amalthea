@@ -28,9 +28,9 @@ def threaded_client(conn):
             for string in data_holder:
                 if string == '\n':
                     print("Newline found" + data_holder)
-                    reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + data_holder
+                    reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + data_holder + "\n"
                     # reply = data_holder
-                    conn.send(str.encode(reply))
+                    conn.sendall(str.encode(reply))
                     print(data_holder)
                     if not data:
                         print("No data received")
