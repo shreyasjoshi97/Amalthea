@@ -37,7 +37,6 @@ def threaded_client(conn):
                         print("No data received")
                         break
                     sending = False
-                    conn.close()
         except BrokenPipeError as e:
             print("Socket error: ", e)
             break
