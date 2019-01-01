@@ -1,5 +1,6 @@
 import socket
 import os
+import pandas as pd
 from _thread import *
 
 host = '0.0.0.0'
@@ -7,6 +8,8 @@ port = os.environ.get("PORT", 5000)
 port = int(port)
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+f = open("permissions.txt", 'r')
+print(f)
 
 try:
     s.bind((host, port))
