@@ -9,7 +9,9 @@ port = int(port)
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 f = open("permissions.txt", 'r')
-print(f)
+for line in f:
+    print(line)
+
 
 try:
     s.bind((host, port))
