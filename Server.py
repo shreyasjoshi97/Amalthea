@@ -1,6 +1,5 @@
 import socket
 import os
-import re
 from _thread import *
 
 host = '0.0.0.0'
