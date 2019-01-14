@@ -6,7 +6,7 @@ import pandas as pd
 class BehaviourInit:
     def __init__(self):
         self.time_taken = datetime.strptime("2018-12-23 17:18:46.242", "%Y-%m-%d %H:%M:%S.%f")
-        self.df = pd.read_csv("SampleLogs.csv")
+        self.df = pd.read_csv("behaviour.csv")
         self.vss_arr = []
         self.rss_arr = []
         self.cpu_arr = []

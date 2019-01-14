@@ -2,16 +2,30 @@ import socket
 import os
 import pandas as pd
 from _thread import *
+from Amalthea import BehaviourInit
+from Amalthea import StaticInit
+
+
+def init_file(name):
+    if os.path.exists(name):
+        os.remove(name)
+    file = open(name, "a")
+    return file
+
+
+def setup_analysis():
+    if os.path.exists(permissions_file):
+        static = StaticInit.StaticInit()
+    if os.path.exists(behaviour_file):
+        behaviour = BehaviourInit.BehaviourInit()
+
 
 host = '0.0.0.0'
+permissions_file = 'permissions.txt'
+behaviour_file = 'behaviour.csv'
 port = os.environ.get("PORT", 5000)
 port = int(port)
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-f = open("permissions.txt", 'r')
-for line in f:
-    print(line)
-
 
 try:
     s.bind((host, port))
@@ -27,6 +41,7 @@ def threaded_client(conn):
     sending = True
     while sending:
         try:
+            reading = False
             data = conn.recv(1024)
             data_holder = data_holder + data.decode('utf-8')
             for string in data_holder:
@@ -39,7 +54,18 @@ def threaded_client(conn):
                     if not data:
                         print("No data received")
                         break
+                    reading = False
                     sending = False
+                elif string == 'Static':
+                    reading = True
+                    f = init_file(permissions_file)
+                elif string == 'Behaviour':
+                    f = init_file(behaviour_file)
+                    f.write("\"PID\",\"USER\",\"PR\",\"NI\",\"CPU\",\"S\",\"#THR\",\"VSS\",\"RSS\",\"PCY\",\"Name\",\"Time\"")
+
+                if reading:
+                    f.write(string)
+
         except BrokenPipeError as e:
             print("Socket error: ", e)
             break
