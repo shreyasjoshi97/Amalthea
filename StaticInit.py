@@ -1,4 +1,4 @@
-from Amalthea import StaticAnalysis
+import StaticAnalysis
 import numpy as np
 
 

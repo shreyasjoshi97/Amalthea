@@ -1,4 +1,4 @@
-from Amalthea import BehaviourAnalysis
+import BehaviourAnalysis
 from datetime import datetime
 import pandas as pd
 

@@ -2,8 +2,8 @@ import socket
 import os
 import pandas as pd
 from _thread import *
-from Amalthea import BehaviourInit
-from Amalthea import StaticInit
+import BehaviourInit
+import StaticInit
 
 
 def init_file(name):
