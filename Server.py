@@ -65,6 +65,7 @@ def threaded_client(conn):
 
                 if reading:
                     f.write(string)
+                    print(string)
 
         except BrokenPipeError as e:
             print("Socket error: ", e)
