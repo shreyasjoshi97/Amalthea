@@ -24,7 +24,6 @@ class StaticInit:
             name = line[0]
             line.pop(0)
             for permission in line:
-                print(permission)
                 if permission in self.permissions:
                     self.permissions.update({permission: 1})
             prediction = list(self.permissions.values())

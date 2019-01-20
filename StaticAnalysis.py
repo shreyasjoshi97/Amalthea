@@ -26,5 +26,6 @@ class StaticAnalysis:
         self.model.fit(X_train, Y_train)
 
     def make_prediction(self, predictor):
+        print('Making prediction')
         pred = self.model.predict(predictor)
         return pred
