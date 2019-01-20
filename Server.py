@@ -56,10 +56,10 @@ def threaded_client(conn):
                     #    break
                     # reading = False
                     # sending = False
-                if string == 'Static':
+                if string == 'Static\n':
                     reading = True
                     f = init_file(permissions_file)
-                elif string == 'Behaviour':
+                elif string == 'Behaviour\n':
                     f = init_file(behaviour_file)
                     f.write("\"PID\",\"USER\",\"PR\",\"NI\",\"CPU\",\"S\",\"#THR\",\"VSS\",\"RSS\",\"PCY\",\"Name\",\"Time\"")
 
