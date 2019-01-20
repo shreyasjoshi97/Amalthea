@@ -49,7 +49,6 @@ def threaded_client(conn):
             for string in data_holder:
                 if string == '~':
                     results = setup_analysis()
-                    break
                     reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + results + "\n"
                     conn.sendall(str.encode(results))
                     # print(data_holder)
@@ -58,9 +57,9 @@ def threaded_client(conn):
                         break
                     reading = False
                     sending = False
-                    conn.close()
+
                     break
-                if string == '|':
+                elif string == '|':
                     reading = True
                     f = init_file(permissions_file)
                 elif string == '^':
@@ -76,7 +75,7 @@ def threaded_client(conn):
         except ConnectionResetError as e:
             print("Connection reset error")
             break
-    # conn.close()
+    conn.close()
 
 
 while True:
