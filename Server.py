@@ -47,7 +47,6 @@ def threaded_client(conn):
             for string in data_holder:
                 if string == '~':
                     setup_analysis()
-                    break
                     # print("Newline found" + data_holder)
                     # reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + data_holder + "\n"
                     # conn.sendall(str.encode(reply))
