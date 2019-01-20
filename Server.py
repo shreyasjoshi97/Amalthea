@@ -59,6 +59,7 @@ def threaded_client(conn):
                     reading = False
                     sending = False
                     conn.close()
+                    sending = False
                     break
                 if string == '|':
                     reading = True
@@ -76,7 +77,6 @@ def threaded_client(conn):
         except ConnectionResetError as e:
             print("Connection reset error")
             break
-    # conn.close()
 
 
 while True:
