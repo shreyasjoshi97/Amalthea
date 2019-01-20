@@ -49,7 +49,7 @@ def threaded_client(conn):
             for string in data_holder:
                 if string == '~':
                     results = setup_analysis()
-                    reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + results + "\n"
+                    # reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + str(results) + "\n"
                     conn.sendall(str.encode(results))
                     # print(data_holder)
                     if not data:
@@ -57,7 +57,6 @@ def threaded_client(conn):
                         break
                     reading = False
                     sending = False
-
                     break
                 elif string == '|':
                     reading = True
