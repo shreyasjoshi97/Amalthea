@@ -16,8 +16,10 @@ def init_file(name):
 def setup_analysis():
     if os.path.exists(permissions_file):
         static = StaticInit.StaticInit()
+        results = static.initialise_results()
     if os.path.exists(behaviour_file):
         behaviour = BehaviourInit.BehaviourInit()
+    return results
 
 
 host = '0.0.0.0'
@@ -46,17 +48,16 @@ def threaded_client(conn):
             data_holder = data_holder + data.decode('utf-8')
             for string in data_holder:
                 if string == '~':
-                    setup_analysis()
+                    results = setup_analysis()
                     break
-                    # print("Newline found" + data_holder)
-                    # reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + data_holder + "\n"
-                    # conn.sendall(str.encode(reply))
+                    reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + results + "\n"
+                    conn.sendall(str.encode(results))
                     # print(data_holder)
-                    # if not data:
-                    #    print("No data received")
-                    #    break
-                    # reading = False
-                    # sending = False
+                    if not data:
+                        print("No data received")
+                        break
+                    reading = False
+                    sending = False
                 if string == '|':
                     reading = True
                     f = init_file(permissions_file)

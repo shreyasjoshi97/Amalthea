@@ -32,3 +32,4 @@ class StaticInit:
             self.results.update({name: result[0]})
             self.initialise_permissions()
         print(self.results)
+        return self.results
