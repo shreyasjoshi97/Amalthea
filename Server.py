@@ -46,17 +46,17 @@ def threaded_client(conn):
             data_holder = data_holder + data.decode('utf-8')
             for string in data_holder:
                 if string == '\n':
-                    print("Newline found" + data_holder)
-                    reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + data_holder + "\n"
-                    # reply = data_holder
-                    conn.sendall(str.encode(reply))
-                    print(data_holder)
-                    if not data:
-                        print("No data received")
-                        break
-                    reading = False
-                    sending = False
-                elif string == 'Static':
+                    setup_analysis()
+                    # print("Newline found" + data_holder)
+                    # reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + data_holder + "\n"
+                    # conn.sendall(str.encode(reply))
+                    # print(data_holder)
+                    # if not data:
+                    #    print("No data received")
+                    #    break
+                    # reading = False
+                    # sending = False
+                if string == 'Static':
                     reading = True
                     f = init_file(permissions_file)
                 elif string == 'Behaviour':
