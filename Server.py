@@ -43,7 +43,6 @@ def threaded_client(conn):
         try:
             reading = False
             data = conn.recv(1024)
-            print(data.decode('utf-8'))
             data_holder = data_holder + data.decode('utf-8')
             for string in data_holder:
                 if string == '\n':
@@ -57,10 +56,10 @@ def threaded_client(conn):
                     #    break
                     # reading = False
                     # sending = False
-                if string == 'Static\n':
+                if string == '|':
                     reading = True
                     f = init_file(permissions_file)
-                elif string == 'Behaviour\n':
+                elif string == '^':
                     f = init_file(behaviour_file)
                     f.write("\"PID\",\"USER\",\"PR\",\"NI\",\"CPU\",\"S\",\"#THR\",\"VSS\",\"RSS\",\"PCY\",\"Name\",\"Time\"")
 
