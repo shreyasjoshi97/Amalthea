@@ -43,9 +43,9 @@ def threaded_client(conn):
         try:
             reading = False
             data = conn.recv(1024)
+            print(data.decode('utf-8'))
             data_holder = data_holder + data.decode('utf-8')
             for string in data_holder:
-                print(string)
                 if string == '\n':
                     setup_analysis()
                     # print("Newline found" + data_holder)
