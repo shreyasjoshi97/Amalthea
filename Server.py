@@ -58,6 +58,7 @@ def threaded_client(conn):
                         break
                     reading = False
                     sending = False
+                    break
                 if string == '|':
                     reading = True
                     f = init_file(permissions_file)
