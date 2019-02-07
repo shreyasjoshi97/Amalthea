@@ -70,10 +70,10 @@ def threaded_client(conn):
                     f.write(string)
 
         except BrokenPipeError as e:
-            print("Socket error: ", e)
+            # print("Socket error: ", e)
             break
         except ConnectionResetError as e:
-            print("Connection reset error")
+            # print("Connection reset error")
             break
     conn.close()
 

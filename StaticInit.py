@@ -24,6 +24,7 @@ class StaticInit:
         for x in self.file:
             line = x.split(',')
             name = line[0]
+            print(name)
             line.pop(0)
             for permission in line:
                 if permission in self.permissions:
