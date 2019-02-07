@@ -12,8 +12,7 @@ class StaticInit:
         self.results = {}
         self.initialise_permissions()
         self.init_model()
-        self.initialise_results()
-
+        
     def initialise_permissions(self):
         p = open("permissiontypes.txt")
         for x in p:
