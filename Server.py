@@ -76,6 +76,8 @@ def threaded_client(conn):
             break
     conn.close()
 
+
+sending = True
 conn, addr = s.accept()
 while sending:
     try:
