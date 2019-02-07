@@ -20,13 +20,14 @@ def setup_analysis():
         behaviour = BehaviourInit.BehaviourInit()
     return results
 
-static = StaticInit.StaticInit()
+
 host = '0.0.0.0'
 permissions_file = 'permissions.txt'
 behaviour_file = 'behaviour.csv'
 port = os.environ.get("PORT", 5000)
 port = int(port)
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+static = StaticInit.StaticInit()
 
 try:
     s.bind((host, port))
