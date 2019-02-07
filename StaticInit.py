@@ -11,7 +11,6 @@ class StaticInit:
         self.permissions = {}
         self.results = {}
         self.initialise_permissions()
-        self.file = open("permissions.txt", "r")
         self.init_model()
         self.initialise_results()
 
@@ -22,6 +21,7 @@ class StaticInit:
             self.permissions.update({name: 0})
 
     def initialise_results(self):
+        self.file = open("permissions.txt", "r")
         for x in self.file:
             line = x.split(',')
             name = line[0]
