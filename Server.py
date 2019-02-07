@@ -15,13 +15,12 @@ def init_file(name):
 
 def setup_analysis():
     if os.path.exists(permissions_file):
-        static = StaticInit.StaticInit()
         results = static.initialise_results()
     if os.path.exists(behaviour_file):
         behaviour = BehaviourInit.BehaviourInit()
     return results
 
-
+static = StaticInit.StaticInit()
 host = '0.0.0.0'
 permissions_file = 'permissions.txt'
 behaviour_file = 'behaviour.csv'
