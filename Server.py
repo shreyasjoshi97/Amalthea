@@ -15,6 +15,7 @@ def init_file(name):
 
 def setup_analysis():
     if os.path.exists(permissions_file):
+        static = StaticInit.StaticInit()
         results = static.initialise_results()
     if os.path.exists(behaviour_file):
         behaviour = BehaviourInit.BehaviourInit()
@@ -27,7 +28,7 @@ behaviour_file = 'behaviour.csv'
 port = os.environ.get("PORT", 5000)
 port = int(port)
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-static = StaticInit.StaticInit()
+
 
 try:
     s.bind((host, port))
