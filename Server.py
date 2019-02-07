@@ -66,6 +66,7 @@ def threaded_client(conn):
                     f.write("\"PID\",\"USER\",\"PR\",\"NI\",\"CPU\",\"S\",\"#THR\",\"VSS\",\"RSS\",\"PCY\",\"Name\",\"Time\"\n")
 
                 if reading:
+                    print(string)
                     f.write(string)
 
         except BrokenPipeError as e:
