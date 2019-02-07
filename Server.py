@@ -37,10 +37,49 @@ except socket.error as e:
 s.listen(1)
 print('Server listening')
 
+
+def threaded_client(conn):
+    data_holder = ''
+    sending = True
+    while sending:
+        try:
+            reading = False
+            data = conn.recv(1024)
+            data_holder = data_holder + data.decode('utf-8')
+            for string in data_holder:
+                if string == '~':
+                    results = setup_analysis()
+                    reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + str(results) + "\n"
+                    conn.sendall(str.encode(reply))
+                    # print(data_holder)
+                    if not data:
+                        print("No data received")
+                        break
+                    reading = False
+                    sending = False
+                    break
+                elif string == '|':
+                    reading = True
+                    f = init_file(permissions_file)
+                elif string == '^':
+                    f = init_file(behaviour_file)
+                    f.write("\"PID\",\"USER\",\"PR\",\"NI\",\"CPU\",\"S\",\"#THR\",\"VSS\",\"RSS\",\"PCY\",\"Name\",\"Time\"\n")
+
+                if reading:
+                    f.write(string)
+
+        except BrokenPipeError as e:
+            print("Socket error: ", e)
+            break
+        except ConnectionResetError as e:
+            print("Connection reset error")
+            break
+    conn.close()
+
+
 sending = True
 data_holder = ''
 conn, addr = s.accept()
-print('Connected to: ' + addr[0] + ':' + str(addr[1]))
 while sending:
     try:
         reading = False
@@ -76,3 +115,7 @@ while sending:
         break
 conn.close()
 
+#while True:
+#    conn, addr = s.accept()
+#    print('Connected to: ' + addr[0] + ':' + str(addr[1]))
+#    start_new_thread(threaded_client, (conn,))
