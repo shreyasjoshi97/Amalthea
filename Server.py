@@ -29,7 +29,6 @@ port = os.environ.get("PORT", 5000)
 port = int(port)
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-
 try:
     s.bind((host, port))
 except socket.error as e:
@@ -64,16 +63,16 @@ def threaded_client(conn):
                     f = init_file(permissions_file)
                 elif string == '^':
                     f = init_file(behaviour_file)
-                    f.write("\"PID\",\"USER\",\"PR\",\"NI\",\"CPU\",\"S\",\"#THR\",\"VSS\",\"RSS\",\"PCY\",\"Name\",\"Time\"")
+                    f.write("\"PID\",\"USER\",\"PR\",\"NI\",\"CPU\",\"S\",\"#THR\",\"VSS\",\"RSS\",\"PCY\",\"Name\",\"Time\"\n")
 
                 if reading:
                     f.write(string)
 
         except BrokenPipeError as e:
-            # print("Socket error: ", e)
+            print("Socket error: ", e)
             break
         except ConnectionResetError as e:
-            # print("Connection reset error")
+            print("Connection reset error")
             break
     conn.close()
 
