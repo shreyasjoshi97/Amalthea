@@ -5,10 +5,7 @@ from _thread import *
 import BehaviourInit
 import StaticInit
 
-
 def init_file(name):
-    if os.path.exists(name):
-        os.remove(name)
     file = open(name, "a")
     return file
 
@@ -34,7 +31,7 @@ try:
 except socket.error as e:
     print("Binding failed" + e.strerror)
 
-s.listen(1)
+s.listen(5)
 print('Server listening')
 
 
@@ -43,7 +40,7 @@ def threaded_client(conn):
     sending = True
     while sending:
         try:
-            # reading = False
+            reading = False
             data = conn.recv(1024)
             data_holder = data_holder + data.decode('utf-8')
             for string in data_holder:
@@ -51,22 +48,21 @@ def threaded_client(conn):
                     results = setup_analysis()
                     reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + str(results) + "\n"
                     conn.sendall(str.encode(reply))
-                    # print(data_holder)
                     if not data:
                         print("No data received")
                         break
                     sending = False
                     break
-                #elif string == '|':
-                    # reading = True
-                # elif string == '^':
-                #     f = init_file(behaviour_file)
-                #    f.write("\"PID\",\"USER\",\"PR\",\"NI\",\"CPU\",\"S\",\"#THR\",\"VSS\",\"RSS\",\"PCY\",\"Name\",\"Time\"\n")
+                elif string == '|':
+                    f = init_file(permissions_file)
+                    reading = True
+                elif string == '^':
+                    f = init_file(behaviour_file)
+                    f.write("\"PID\",\"USER\",\"PR\",\"NI\",\"CPU\",\"S\",\"#THR\",\"VSS\",\"RSS\",\"PCY\",\"Name\",\"Time\"\n")
 
-                # if reading:
-                #     f.write(string)
-                f = init_file(permissions_file)
-                f.write(string)
+                if reading:
+                    f.write(string)
+
         except BrokenPipeError as e:
             print("Socket error: ", e)
             break
@@ -79,4 +75,5 @@ def threaded_client(conn):
 while True:
     conn, addr = s.accept()
     print('Connected to: ' + addr[0] + ':' + str(addr[1]))
+
     start_new_thread(threaded_client, (conn,))
