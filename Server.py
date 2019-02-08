@@ -14,8 +14,8 @@ def setup_analysis():
     if os.path.exists(permissions_file):
         static = StaticInit.StaticInit()
         results = static.initialise_results()
-    if os.path.exists(behaviour_file):
-        behaviour = BehaviourInit.BehaviourInit()
+    # if os.path.exists(behaviour_file):
+        # behaviour = BehaviourInit.BehaviourInit()
     return results
 
 
