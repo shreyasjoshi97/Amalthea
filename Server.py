@@ -26,7 +26,7 @@ def threaded_client(conn):
             data = conn.recv(1024)
             data_holder = data_holder + data.decode('utf-8')
             for string in data_holder:
-                if string == '~':
+                if string == '\n':
                     print("Newline found" + data_holder)
                     reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + data_holder + "\n"
                     # reply = data_holder
