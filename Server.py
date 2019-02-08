@@ -2,8 +2,9 @@ import socket
 import os
 import pandas as pd
 from _thread import *
-import BehaviourInit
-import StaticInit
+import Amalthea.BehaviourInit as BehaviourInit
+import Amalthea.StaticInit as StaticInit
+
 
 def init_file(name):
     file = open(name, "a")
