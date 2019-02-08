@@ -28,7 +28,7 @@ def threaded_client(conn):
             for string in data_holder:
                 if string == '\n':
                     print("Newline found" + data_holder)
-                    ret = "Result:" + data_holder
+                    ret = "Result:" + string
                     reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + ret + "\n"
                     # reply = data_holder
                     conn.sendall(str.encode(reply))
