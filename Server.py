@@ -1,9 +1,8 @@
 import socket
 import os
-import pandas as pd
 from _thread import *
-import Amalthea.BehaviourInit as BehaviourInit
-import Amalthea.StaticInit as StaticInit
+import BehaviourInit
+import StaticInit
 
 
 def init_file(name):
