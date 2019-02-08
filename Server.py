@@ -25,10 +25,6 @@ def threaded_client(conn):
         try:
             data = conn.recv(1024)
             data_holder = data_holder + data.decode('utf-8')
-            if not data:
-                print("No data received")
-                break
-            sending = False
             for string in data_holder:
                 if string == '\n':
                     print("Newline found" + data_holder)
