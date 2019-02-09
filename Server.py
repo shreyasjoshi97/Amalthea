@@ -20,14 +20,12 @@ def init_file(name):
 def parse_data(message):
     f = None
     start_reading = False
-    data = ''
     for x in message:
         if start_reading:
-            data += x
+            f.write(x)
         if x == "|":
             start_reading = True
             f = init_file(permissions_file)
-    f.write(data)
     result = setup_analysis()
     return result
 
