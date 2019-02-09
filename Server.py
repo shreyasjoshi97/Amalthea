@@ -26,7 +26,6 @@ def parse_data(message):
             data += x
         if x == "|":
             start_reading = True
-    print(data)
     return data
 
 
@@ -39,6 +38,8 @@ def threaded_client(conn):
             data_holder = data_holder + data.decode('utf-8')
             for string in data_holder:
                 if string == '\n':
+                    ret1 = parse_data(data_holder)
+                    print(ret1)
                     ret = data_holder + parse_data(data_holder)
                     reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + ret + "\n"
                     # reply = data_holder
