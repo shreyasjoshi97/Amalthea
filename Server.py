@@ -86,6 +86,4 @@ def threaded_client(conn):
 while True:
     conn, addr = s.accept()
     print('Connected to: ' + addr[0] + ':' + str(addr[1]))
-    if os.path.exists(permissions_file):
-        os.remove(permissions_file)
     start_new_thread(threaded_client, (conn,))
