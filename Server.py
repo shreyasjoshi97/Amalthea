@@ -20,12 +20,10 @@ def init_file(name):
 def parse_data(message):
     f = None
     start_reading = False
+    message = message.replace("^", "\n")
     for x in message:
         if start_reading:
-            if x == '^':
-                f.write('\n')
-            else:
-                f.write(x)
+            f.write(x)
         if x == "|":
             start_reading = True
             f = init_file(permissions_file)
