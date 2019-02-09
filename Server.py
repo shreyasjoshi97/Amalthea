@@ -26,6 +26,7 @@ def parse_data(message):
             data += x
         if x == "|":
             start_reading = True
+    print(data)
     return data
 
 
