@@ -78,35 +78,10 @@ def threaded_client(conn):
             break
     conn.close()
 
+
 while True:
     conn, addr = s.accept()
     print('Connected to: ' + addr[0] + ':' + str(addr[1]))
     if os.path.exists(permissions_file):
         os.remove(permissions_file)
-    data_holder = ''
-    sending = True
-    while sending:
-        try:
-            data = conn.recv(1024)
-            data_holder = data_holder + data.decode('utf-8')
-            for string in data_holder:
-                if string == '\n':
-                    ret1 = "Result Start " + parse_data(data_holder) + " Result End"
-                    print(ret1)
-                    ret = data_holder + "\n" + ret1
-                    reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + ret + "\n\n"
-                    # reply = data_holder
-                    conn.sendall(str.encode(reply))
-                    # print(ret)
-                    if not data:
-                        print("No data received")
-                        break
-                    sending = False
-        except BrokenPipeError as e:
-            print("Socket error: ", e)
-            break
-        except ConnectionResetError as e:
-            print("Connection reset error")
-            break
-    conn.close()
-    # start_new_thread(threaded_client, (conn,))
+    start_new_thread(threaded_client, (conn,))
