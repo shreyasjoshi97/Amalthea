@@ -11,6 +11,7 @@ def init_file(name):
 
 
 def setup_analysis():
+    results = ''
     if os.path.exists(permissions_file):
         static = StaticInit.StaticInit()
         results = static.initialise_results()
