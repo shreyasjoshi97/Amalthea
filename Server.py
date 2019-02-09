@@ -13,8 +13,6 @@ behaviour_file = 'behaviour.csv'
 
 
 def init_file(name):
-    if os.path.exists(permissions_file):
-        os.remove(permissions_file)
     file = open(name, "a")
     return file
 
