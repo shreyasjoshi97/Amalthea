@@ -44,7 +44,7 @@ def threaded_client(conn):
             data = conn.recv(1024)
             data_holder = data_holder + data.decode('utf-8')
             for string in data_holder:
-                if string == '~':
+                if string == '\n':
                     results = setup_analysis()
                     reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + str(results) + "\n"
                     conn.sendall(str.encode(reply))
