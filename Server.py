@@ -64,7 +64,7 @@ def threaded_client(conn):
                     ret = data_holder + "\n" + ret1
                     reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + ret + "\n\n"
                     # reply = data_holder
-                    if ret1 != "{}":
+                    if ret1 != "Result Start {} Result End":
                         conn.sendall(str.encode(reply))
                     #print(ret)
                     if not data:
