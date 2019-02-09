@@ -56,7 +56,7 @@ s.listen(1)
 print('Server listening')
 
 
-def threaded_client(conn):
+def threaded_client():
     data_holder = ''
     sending = True
     while sending:
@@ -91,7 +91,7 @@ while True:
     print('Connected to: ' + addr[0] + ':' + str(addr[1]))
     if os.path.exists(permissions_file):
         os.remove(permissions_file)
-    t = threading.Thread(target=threaded_client, args=conn)
+    t = threading.Thread(target=threaded_client)
     t.start()
     t.join()
     # start_new_thread(threaded_client, (conn,))
