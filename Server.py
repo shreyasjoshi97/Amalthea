@@ -22,8 +22,6 @@ def parse_data(message):
     start_reading = False
     for x in message:
         if start_reading:
-            if x == '\t':
-                x = '\n'
             f.write(x)
         if x == "|":
             start_reading = True
