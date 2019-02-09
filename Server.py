@@ -33,6 +33,7 @@ def parse_data(message):
 def setup_analysis():
     results = ''
     if os.path.exists(permissions_file):
+        print("HERE")
         static = StaticInit.StaticInit()
         results = static.initialise_results()
     # if os.path.exists(behaviour_file):
