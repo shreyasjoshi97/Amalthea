@@ -21,7 +21,7 @@ print('Server listening')
 def threaded_client(conn):
     data_holder = ''
     sending = True
-    while sending:
+    while True:
         try:
             data = conn.recv(1024)
             data_holder = data_holder + data.decode('utf-8')
