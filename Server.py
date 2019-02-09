@@ -1,6 +1,6 @@
 import socket
 import os
-import re
+import threading
 import StaticInit
 from _thread import *
 
@@ -22,10 +22,16 @@ def parse_data(message):
     start_reading = False
     for x in message:
         if start_reading:
-            f.write(x)
+            if x == "$":
+                f.write("\n")
+            else:
+                f.write(x)
         if x == "|":
             start_reading = True
             f = init_file(permissions_file)
+        elif x == "^":
+            start_reading = True
+            f = init_file(behaviour_file)
     result = setup_analysis()
     return result
 
@@ -85,4 +91,7 @@ while True:
     print('Connected to: ' + addr[0] + ':' + str(addr[1]))
     if os.path.exists(permissions_file):
         os.remove(permissions_file)
-    start_new_thread(threaded_client, (conn,))
+    t = threading.Thread(target=threaded_client, args=conn)
+    t.start()
+    t.join()
+    # start_new_thread(threaded_client, (conn,))
