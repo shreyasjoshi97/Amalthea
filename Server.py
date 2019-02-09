@@ -37,7 +37,7 @@ def setup_analysis():
         results = static.initialise_results()
     # if os.path.exists(behaviour_file):
         # behaviour = BehaviourInit.BehaviourInit()
-    return results
+    return str(results)
 
 
 try:
