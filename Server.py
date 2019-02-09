@@ -41,6 +41,7 @@ def threaded_client(conn):
                         print("No data received")
                         break
                     sending = False
+                    reading = False
                 elif string == '|':
                     reading = True
         except BrokenPipeError as e:
