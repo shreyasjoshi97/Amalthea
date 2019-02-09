@@ -41,7 +41,7 @@ def threaded_client(conn):
                     ret1 = parse_data(data_holder)
                     print(ret1)
                     ret = data_holder + "\n" + ret1
-                    reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + ret + "\n"
+                    reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + ret + "\n\n"
                     # reply = data_holder
                     conn.sendall(str.encode(reply))
                     #print(ret)
