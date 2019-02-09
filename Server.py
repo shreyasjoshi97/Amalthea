@@ -18,7 +18,7 @@ def init_file(name):
 
 
 def parse_data(message):
-    f = ''
+    f = None
     start_reading = False
     data = ''
     for x in message:
