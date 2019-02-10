@@ -12,18 +12,27 @@ permissions_file = 'permissions.txt'
 behaviour_file = 'behaviour.csv'
 
 
-def init_file(name):
-    if os.path.exists(permissions_file):
-        os.remove(permissions_file)
+def init_file(message):
+    if "|" in message:
+        print("Permissions process")
+        name = permissions_file
+        if os.path.exists(name):
+            os.remove(name)
+    elif "^" in message:
+        print("Behaviour process")
+        name = behaviour_file
+        if os.path.exists(name):
+            os.remove(name)
     file = open(name, "a")
     return file
 
 
 def parse_data(message):
+    f = init_file(message)
     if "|" in message:
-        f = init_file(permissions_file)
+        message = message.replace("|", "")
     elif "^" in message:
-        f = init_file(behaviour_file)
+        message = message.replace("^", "")
     for x in message:
         if x == "$":
             f.write("\n")
