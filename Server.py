@@ -13,6 +13,7 @@ behaviour_file = 'behaviour.csv'
 
 
 def init_file(message):
+    name = ''
     if "|" in message:
         print("Permissions process")
         name = permissions_file
