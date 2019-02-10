@@ -20,6 +20,7 @@ def init_file(name):
 
 
 def parse_data(message):
+    f = None
     start_reading = False
     for x in message:
         if start_reading:
