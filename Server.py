@@ -20,6 +20,7 @@ def init_file(name):
 
 
 def parse_data(message):
+
     if message[0] == "|":
         f = init_file(permissions_file)
     else:
@@ -64,6 +65,7 @@ def threaded_client(conn):
             data_holder = data_holder + data.decode('utf-8')
             for string in data_holder:
                 if string == '\n':
+                    print("Newline found: " + data_holder)
                     ret1 = "Result Start " + parse_data(data_holder) + " Result End"
                     print(ret1)
                     ret = data_holder + "\n" + ret1
@@ -71,11 +73,11 @@ def threaded_client(conn):
                     # reply = data_holder
                     if ret1 != "Result Start {} Result End":
                         conn.sendall(str.encode(reply))
+                        sending = False
                     #print(ret)
                     if not data:
                         print("No data received")
                         break
-                    sending = False
         except BrokenPipeError as e:
             print("Socket error: ", e)
             break
