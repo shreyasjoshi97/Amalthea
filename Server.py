@@ -30,15 +30,15 @@ def init_file(message):
 
 def parse_data(message):
     f = init_file(message)
-    if "|" in message:
-        message = message.replace("|", "")
-    elif "^" in message:
-        message = message.replace("^", "")
+    start_reading = False
     for x in message:
-        if x == "$":
-            f.write("\n")
-        else:
-            f.write(x)
+        if start_reading:
+            if x == "$":
+                f.write("\n")
+            else:
+                f.write(x)
+        if x == "|" or x == "^":
+            start_reading = True
     f.close()
     result = setup_analysis()
     return result
