@@ -20,18 +20,15 @@ def init_file(name):
 
 
 def parse_data(message):
-    f = None
-    start_reading = False
+    if "|" in message:
+        f = init_file(permissions_file)
+    elif "^" in message:
+        f = init_file(behaviour_file)
     for x in message:
-        if start_reading:
-            if x == "$":
-                f.write("\n")
-            else:
-                f.write(x)
-        if x == "|":
-            print("Found contents\n")
-            f = init_file(permissions_file)
-            start_reading = True
+        if x == "$":
+            f.write("\n")
+        else:
+            f.write(x)
     f.close()
     result = setup_analysis()
     return result
