@@ -1,7 +1,7 @@
 import socket
 import os
 import threading
-import StaticInit
+from Amalthea import StaticInit
 from _thread import *
 
 host = '0.0.0.0'
@@ -13,25 +13,24 @@ behaviour_file = 'behaviour.csv'
 
 
 def init_file(name):
+    if os.path.exists(permissions_file):
+        os.remove(permissions_file)
     file = open(name, "a")
     return file
 
 
 def parse_data(message):
-    f = None
-    start_reading = False
+    if message[0] == "|":
+        f = init_file(permissions_file)
+    else:
+        f = init_file(behaviour_file)
+    message = message[1:]
     for x in message:
-        if start_reading:
-            if x == "$":
-                f.write("\n")
-            else:
-                f.write(x)
-        if x == "|":
-            start_reading = True
-            f = init_file(permissions_file)
-        elif x == "^":
-            start_reading = True
-            f = init_file(behaviour_file)
+        if x == "$":
+            f.write("\n")
+        else:
+            f.write(x)
+    f.close()
     result = setup_analysis()
     return result
 
@@ -89,8 +88,6 @@ def threaded_client(conn):
 while True:
     conn, addr = s.accept()
     print('Connected to: ' + addr[0] + ':' + str(addr[1]))
-    if os.path.exists(permissions_file):
-        os.remove(permissions_file)
     t = threading.Thread(target=threaded_client, args=(conn,))
     t.start()
     t.join()
