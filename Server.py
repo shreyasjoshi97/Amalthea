@@ -71,7 +71,7 @@ def threaded_client(conn):
     sending = True
     while sending:
         try:
-            data = conn.recv(8192)
+            data = conn.recv(2048)
             data_holder = data_holder + data.decode('utf-8')
             for string in data_holder:
                 if string == '\n':
