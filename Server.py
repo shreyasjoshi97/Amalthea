@@ -28,6 +28,7 @@ def parse_data(message):
             else:
                 f.write(x)
         if x == "|":
+            print("Found contents\n")
             f = init_file(permissions_file)
             start_reading = True
     f.close()

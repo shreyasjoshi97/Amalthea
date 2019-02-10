@@ -23,6 +23,7 @@ class StaticInit:
     def initialise_results(self):
         self.file = open("permissions.txt", "r")
         for x in self.file:
+            print("Permission set: " + x)
             line = x.split(',')
             name = line[0]
             line.pop(0)
