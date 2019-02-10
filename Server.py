@@ -38,8 +38,11 @@ def parse_data(message):
                 f.write(x)
         if x == "|" or x == "^":
             start_reading = True
-    f.close()
-    result = setup_analysis()
+    try:
+        f.close()
+        result = setup_analysis()
+    except AttributeError:
+        return "{}"
     return result
 
 
