@@ -71,7 +71,7 @@ def threaded_client(conn):
     sending = True
     while sending:
         try:
-            data = conn.recv(2048)
+            data = conn.recv(1024)
             data_holder = data_holder + data.decode('utf-8')
             for string in data_holder:
                 if string == '\n':
@@ -80,8 +80,7 @@ def threaded_client(conn):
                     ret = data_holder + "\n" + ret1
                     reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + ret + "\n\n"
                     # reply = data_holder
-                    if ret1 != "Result Start {} Result End":
-                        conn.sendall(str.encode(reply))
+                    conn.sendall(str.encode(reply))
                     #print(ret)
                     if not data:
                         print("No data received")
