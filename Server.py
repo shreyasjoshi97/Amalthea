@@ -20,6 +20,7 @@ def init_file(name):
 
 
 def parse_data(message):
+    print("First character: " + message[0])
     if message[0] == "|":
         f = init_file(permissions_file)
     else:
