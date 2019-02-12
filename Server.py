@@ -69,9 +69,7 @@ s.listen(1)
 print('Server listening')
 
 
-def threaded_client(s):
-    conn, addr = s.accept()
-    print('Connected to: ' + addr[0] + ':' + str(addr[1]))
+def threaded_client(conn):
     data_holder = ''
     sending = True
     while sending:
@@ -101,7 +99,9 @@ def threaded_client(s):
 
 
 while True:
+    conn, addr = s.accept()
+    print('Connected to: ' + addr[0] + ':' + str(addr[1]))
     #t = threading.Thread(target=threaded_client, args=(conn,))
     #t.start()
     #t.join()
-    start_new_thread(threaded_client, (s,))
+    start_new_thread(threaded_client, (conn,))
