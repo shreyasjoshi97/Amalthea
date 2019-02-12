@@ -107,4 +107,5 @@ while True:
     #t = threading.Thread(target=threaded_client, args=(conn,))
     #t.start()
     #t.join()
-    start_new_thread(threaded_client, (conn,))
+    threaded_client(conn)
+    # start_new_thread(threaded_client, (conn,))
