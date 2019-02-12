@@ -13,22 +13,23 @@ behaviour_file = 'behaviour.csv'
 
 
 def init_file(message):
-    if "Permissions" in message:
-        print("Permissions process")
-        if os.path.exists(permissions_file):
-            os.remove(permissions_file)
-        file = open(permissions_file, "a")
-        return file
-    elif "Behaviour" in message:
-        print("Behaviour process")
-        if os.path.exists(behaviour_file):
-            os.remove(behaviour_file)
-        file = open(behaviour_file, "a")
-        file.write("\"Name\",\"CPU\",\"VSS\",\"RSS\",\"PCY\",\"Time\"\n")
-        file.close()
-        return file
-    else:
-        print("Could not find any clues about process")
+    for x in message:
+        if x == "|":
+            print("Permissions process")
+            if os.path.exists(permissions_file):
+                os.remove(permissions_file)
+            file = open(permissions_file, "a")
+            return file
+        elif x == "^":
+            print("Behaviour process")
+            if os.path.exists(behaviour_file):
+                os.remove(behaviour_file)
+            file = open(behaviour_file, "a")
+            file.write("\"Name\",\"CPU\",\"VSS\",\"RSS\",\"PCY\",\"Time\"\n")
+            file.close()
+            return file
+        else:
+            print("Could not find any clues about process")
 
 
 def parse_data(message):
