@@ -24,6 +24,8 @@ def init_file(message):
         if os.path.exists(behaviour_file):
             os.remove(behaviour_file)
         file = open(behaviour_file, "a")
+        file.write("\"Name\",\"CPU\",\"VSS\",\"RSS\",\"Time\"\n")
+        file.close()
         return file
 
 
@@ -88,17 +90,17 @@ def threaded_client(conn):
                     sending = False
         except BrokenPipeError as e:
             print("Socket error: ", e)
-            break
+            return
         except ConnectionResetError as e:
             print("Connection reset error")
-            break
+            return
     conn.close()
 
 
 while True:
     conn, addr = s.accept()
     print('Connected to: ' + addr[0] + ':' + str(addr[1]))
-    #t = threading.Thread(target=threaded_client, args=(conn,))
-    #t.start()
-    #t.join()
+    # t = threading.Thread(target=threaded_client, args=(conn,))
+    # t.start()
+    # t.join()
     start_new_thread(threaded_client, (conn,))
