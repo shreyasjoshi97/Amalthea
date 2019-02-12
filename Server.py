@@ -13,22 +13,20 @@ behaviour_file = 'behaviour.csv'
 
 
 def init_file(message):
-    print(message)
-    for x in message:
-        if x == "|":
-            print("Permissions process")
-            if os.path.exists(permissions_file):
-                os.remove(permissions_file)
-            file = open(permissions_file, "a")
-            return file
-        elif x == "^":
-            print("Behaviour process")
-            if os.path.exists(behaviour_file):
-                os.remove(behaviour_file)
-            file = open(behaviour_file, "a")
-            file.write("\"Name\",\"CPU\",\"VSS\",\"RSS\",\"PCY\",\"Time\"\n")
-            file.close()
-            return file
+    if "|" in message:
+        print("Permissions process")
+        if os.path.exists(permissions_file):
+            os.remove(permissions_file)
+        file = open(permissions_file, "a")
+        return file
+    elif "^" in message:
+        print("Behaviour process")
+        if os.path.exists(behaviour_file):
+            os.remove(behaviour_file)
+        file = open(behaviour_file, "a")
+        file.write("\"Name\",\"CPU\",\"VSS\",\"RSS\",\"PCY\",\"Time\"\n")
+        file.close()
+        return file
 
 
 def parse_data(message):
@@ -76,7 +74,7 @@ def threaded_client(conn):
     sending = True
     while sending:
         try:
-            data = conn.recv(1024)
+            data = conn.recv(2048)
             data_holder = data_holder + data.decode('utf-8')
             for string in data_holder:
                 if string == '\n':
