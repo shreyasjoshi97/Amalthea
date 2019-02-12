@@ -13,6 +13,7 @@ behaviour_file = 'behaviour.csv'
 
 
 def init_file(message):
+    print(message)
     for x in message:
         if x == "|":
             print("Permissions process")
@@ -28,8 +29,6 @@ def init_file(message):
             file.write("\"Name\",\"CPU\",\"VSS\",\"RSS\",\"PCY\",\"Time\"\n")
             file.close()
             return file
-        else:
-            print("Could not find any clues about process")
 
 
 def parse_data(message):
