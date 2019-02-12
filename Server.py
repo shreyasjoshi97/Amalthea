@@ -104,8 +104,4 @@ def threaded_client(conn):
 while True:
     conn, addr = s.accept()
     print('Connected to: ' + addr[0] + ':' + str(addr[1]))
-    #t = threading.Thread(target=threaded_client, args=(conn,))
-    #t.start()
-    #t.join()
-    threaded_client(conn)
-    # start_new_thread(threaded_client, (conn,))
+    start_new_thread(threaded_client, (conn,))
