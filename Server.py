@@ -24,9 +24,11 @@ def init_file(message):
         if os.path.exists(behaviour_file):
             os.remove(behaviour_file)
         file = open(behaviour_file, "a")
-        file.write("\"Name\",\"CPU\",\"VSS\",\"RSS\",\"Time\"\n")
+        file.write("\"Name\",\"CPU\",\"VSS\",\"RSS\",\"PCY\",\"Time\"\n")
         file.close()
         return file
+    else:
+        print("Could not find any clues about process")
 
 
 def parse_data(message):
