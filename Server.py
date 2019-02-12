@@ -1,11 +1,11 @@
 import socket
 import os
 import threading
-import StaticInit
+from Amalthea import StaticInit
 from _thread import *
 
 host = '0.0.0.0'
-port = os.environ.get("PORT", 5000)
+port = os.environ.get("PORT", 7000)
 port = int(port)
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 permissions_file = 'permissions.txt'
@@ -83,7 +83,10 @@ def threaded_client(conn):
                     ret = data_holder + "\n" + ret1
                     reply = "HTTP/1.1 200 OK\n" + "Content-Type: text/html\n" + "\n" + ret + "\n\n"
                     # reply = data_holder
-                    conn.sendall(str.encode(reply))
+                    open = conn.fileno()
+
+                    if open != -1:
+                        conn.sendall(str.encode(reply))
                     #print(ret)
                     if not data:
                         print("No data received")
@@ -91,10 +94,10 @@ def threaded_client(conn):
                     sending = False
         except BrokenPipeError as e:
             print("Socket error: ", e)
-            return
+            break
         except ConnectionResetError as e:
             print("Connection reset error")
-            return
+            break
     conn.close()
 
 
