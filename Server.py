@@ -43,7 +43,8 @@ def parse_data(message):
     try:
         f.close()
         result = setup_analysis()
-    except AttributeError:
+    except AttributeError as ex:
+        print("Attribute Error: ", ex)
         return "{}"
     return result
 
