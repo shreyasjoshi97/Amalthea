@@ -1,7 +1,7 @@
 import socket
 import os
 import threading
-from Amalthea import StaticInit
+import StaticInit
 from _thread import *
 
 host = '0.0.0.0'
