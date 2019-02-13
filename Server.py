@@ -91,6 +91,7 @@ def threaded_client(conn):
                     if not data:
                         print("No data received")
                         break
+                    data_holder = ''
                     sending = False
         except BrokenPipeError as e:
             print("Socket error: ", e)
