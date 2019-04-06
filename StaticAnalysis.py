@@ -3,7 +3,8 @@ from sklearn import model_selection
 from sklearn.linear_model import LogisticRegression
 import pandas as pd
 
-class StaticInit:
+
+class StaticAnalysis:
     data = ""
     model = ""
     file = ''
@@ -53,10 +54,9 @@ class StaticInit:
         # X_test = test_values[:, 0:330]
         # Y_test = test_values[:, 330]
 
-        self.model =LogisticRegression(solver='lbfgs')
+        self.model = LogisticRegression(solver='lbfgs')
         self.model.fit(X_train, Y_train)
 
     def make_prediction(self, predictor):
         pred = self.model.predict(predictor)
         return pred
-
