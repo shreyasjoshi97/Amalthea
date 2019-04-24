@@ -11,7 +11,7 @@ class StaticAnalysis:
 
     def __init__(self):
         self.permissions = {}
-        self.results = {}
+        self.results = ""
         self.initialise_permissions()
         self.init_model()
 
@@ -34,7 +34,7 @@ class StaticAnalysis:
             prediction = list(self.permissions.values())
             prediction_array = np.array(prediction).reshape(1, -1)
             result = self.make_prediction(prediction_array)
-            self.results.update({name: result[0]})
+            self.results = name + "," + str(result[0])
             self.initialise_permissions()
         print(self.results)
         return self.results
@@ -54,7 +54,7 @@ class StaticAnalysis:
         # X_test = test_values[:, 0:330]
         # Y_test = test_values[:, 330]
 
-        self.model = LogisticRegression(solver='lbfgs')
+        self.model = LogisticRegression(solver='lbfgs', multi_class="ovr")
         self.model.fit(X_train, Y_train)
 
     def make_prediction(self, predictor):

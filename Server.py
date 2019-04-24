@@ -8,7 +8,7 @@ import BehaviourChange
 from _thread import *
 #374
 host = ''
-port = os.environ.get("PORT", 50000)
+port = os.environ.get("PORT", 5000)
 port = int(port)
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -21,8 +21,8 @@ averages_file = 'averages.csv'
 def delete_files():
     if os.path.exists(permissions_file):
         os.remove(permissions_file)
-    if os.path.exists(averages_file):
-        os.remove(averages_file)
+    if os.path.exists(delta_file):
+        os.remove(delta_file)
     if os.path.exists(behaviour_file):
         os.remove(behaviour_file)
 
@@ -35,8 +35,8 @@ def init_file(message):
         file = open(permissions_file, "a")
         return file
     elif "+" in message:
-        print("Average process")
-        file = open(averages_file, "a")
+        print("Summary process")
+        file = open(delta_file, "a")
         file.write("\"Name\",\"CPU\",\"VSS\",\"RSS\",\"PCY\",\"Time\"\n")
         return file
     # elif "+" in message:
@@ -83,12 +83,12 @@ def setup_analysis():
         print("HERE")
         static = StaticAnalysis.StaticAnalysis()
         results = static.initialise_results()
-    # if os.path.exists(delta_file):
-    #     delta = DeltaCalculator.DeltaCalculator()
-    #     results = delta.begin_analysis()
-    if os.path.exists(averages_file):
-        average = AverageCalculator.AverageCalculator()
-        results = average.begin_analysis()
+    if os.path.exists(delta_file):
+        delta = DeltaCalculator.DeltaCalculator()
+        results = delta.begin_analysis()
+    # if os.path.exists(averages_file):
+    #     average = AverageCalculator.AverageCalculator()
+    #     results = average.begin_analysis()
     if os.path.exists(behaviour_file):
         behaviour = BehaviourChange.BehaviourChange()
         results = behaviour.begin_analysis()
@@ -99,7 +99,7 @@ def setup_analysis():
 try:
     s.bind((host, port))
 except socket.error as e:
-    print("Binding failed" + e.strerror)
+    print("Binding failed: " + e.strerror)
 
 s.listen(1)
 print('Server listening')

@@ -21,6 +21,7 @@ class DeltaCalculator:
 
         for cpu in self.df['CPU']:
             cpu_val = float(cpu[:-1])
+            cpu_val = cpu_val / 100
             cpu_arr.append(cpu_val)
 
         self.df['VSS'] = vss_arr
@@ -46,10 +47,16 @@ class DeltaCalculator:
 
     def get_stat_list(self, data, column):
         stat_list = []
-        stat_list.append(str(data[column].quantile(0.25)))
-        stat_list.append(str(data[column].median()))
-        stat_list.append(str(data[column].quantile(0.75)))
+        stat_list.append(self.check_nan(data[column].quantile(0.25)))
+        stat_list.append(self.check_nan(data[column].median()))
+        stat_list.append(self.check_nan(data[column].quantile(0.75)))
         return stat_list
+
+    def check_nan(self, value):
+        if math.isnan(value):
+            return "0"
+        else:
+            return str(value)
 
     def get_delta(self, slot, column):
         min_value = slot[column].min()

@@ -32,12 +32,14 @@ class BehaviourChange:
 
         if q3 == 0:
             if maximum != 0:
-                percentage_change = 1
+                percentage_change = maximum
             elif maximum == 0:
                 percentage_change = 0
         else:
             diff = maximum - q3
             percentage_change = diff / q3
+
+        percentage_change = round(percentage_change, 2)
 
         return percentage_change
 
