@@ -36,7 +36,7 @@ def init_file(message):
         return file
     elif "+" in message:
         print("Summary process")
-        file = open(delta_file, "a")
+        file = open(summary_file, "a")
         file.write("\"Name\",\"CPU\",\"VSS\",\"RSS\",\"PCY\",\"Time\"\n")
         return file
     # elif "+" in message:
